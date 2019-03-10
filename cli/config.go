@@ -85,6 +85,8 @@ type hypervisor struct {
 	Msize9p               uint32 `toml:"msize_9p"`
 	BlockDeviceDriver     string `toml:"block_device_driver"`
 	DisableBlockDeviceUse bool   `toml:"disable_block_device_use"`
+	VhostUserSCSIDevice   bool   `toml:"enable_vhost_user_scsi_device"`
+	VUSCSISocketPath      string `toml:"vhost_user_scsi_socket_path"`
 	MemPrealloc           bool   `toml:"enable_mem_prealloc"`
 	HugePages             bool   `toml:"enable_hugepages"`
 	Swap                  bool   `toml:"enable_swap"`
@@ -355,6 +357,8 @@ func newQemuHypervisorConfig(h hypervisor) (vc.HypervisorConfig, error) {
 		BlockDeviceDriver:     blockDriver,
 		EnableIOThreads:       h.EnableIOThreads,
 		Msize9p:               h.msize9p(),
+		VhostUserSCSIDevice:   h.VhostUserSCSIDevice,
+		VUSCSISocketPath:      h.VUSCSISocketPath,
 	}, nil
 }
 

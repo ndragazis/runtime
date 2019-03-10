@@ -21,6 +21,7 @@ import (
 
 	"github.com/kata-containers/runtime/virtcontainers/device/api"
 	deviceDrivers "github.com/kata-containers/runtime/virtcontainers/device/drivers"
+        deviceConfig  "github.com/kata-containers/runtime/virtcontainers/device/config"
 	"github.com/kata-containers/runtime/virtcontainers/utils"
 )
 
@@ -440,6 +441,18 @@ func (q *qemu) createSandbox() error {
 	devices, ioThread, err := q.buildDevices(initrdPath)
 	if err != nil {
 		return err
+	}
+	fmt.Printf("VhostUserSCSIDevice = %t\n", q.config.VhostUserSCSIDevice)
+	fmt.Printf("VUSCSISocketPath = %s\n", q.config.VUSCSISocketPath)
+	if q.config.VhostUserSCSIDevice == true {
+		vu_scsi := &deviceDrivers.VhostUserSCSIDevice {
+			deviceConfig.VhostUserDeviceAttrs{
+				DevType:	deviceConfig.VhostUserSCSI,
+				SocketPath:	q.config.VUSCSISocketPath,
+				ID:		"42",
+			},
+		}
+		devices = q.arch.appendVhostUserDevice(devices, vu_scsi)
 	}
 
 	cpuModel := q.arch.cpuModel()

@@ -134,6 +134,11 @@ enable_iothreads = @DEFENABLEIOTHREADS@
 # used for 9p packet payload.
 #msize_9p = @DEFMSIZE9P@
 
+# This option creates a vhost-user-scsi-pci device (disabled by default).
+# The chardev socket path has to be passed.
+enable_vhost_user_scsi_device = false
+vhost_user_scsi_socket_path = "/home/nikos/Documents/diploma_thesis/VirtioVhostUser/vhost-user.sock"
+
 [factory]
 # VM templating support. Once enabled, new VMs are created from template
 # using vm cloning. They will share the same initial kernel, initramfs and

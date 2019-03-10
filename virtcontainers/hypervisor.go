@@ -217,6 +217,12 @@ type HypervisorConfig struct {
 	// Msize9p is used as the msize for 9p shares
 	Msize9p uint32
 
+	// boolean value to create a vhost_user_scsi device or not
+        VhostUserSCSIDevice bool
+
+	// the socket path for the chardev used for the vhost_user_scsi device
+	VUSCSISocketPath string
+
 	// BootToBeTemplate used to indicate if the VM is created to be a template VM
 	BootToBeTemplate bool
 
